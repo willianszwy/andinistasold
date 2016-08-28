@@ -5,6 +5,6 @@ Database of brazilian summits in Andes mountains
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+Andinistas is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
 
 
