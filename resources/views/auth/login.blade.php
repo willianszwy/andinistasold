@@ -58,7 +58,29 @@
                                     Forgot Your Password?
                                 </a>
                             </div>
-                        </div>
+                        </div>                       
+                    </form>
+                    <form>
+                         <div class="form-group">
+                           <div class="col-md-6 col-md-offset-4">
+                             <a class="btn btn-default" id="facebook" href="{{ url('/redirect/facebook') }}">Facebook</a>
+                          </div>                         
+                        </div>  
+                        <div class="form-group">
+                           <div class="col-md-6 col-md-offset-4">
+                             <a class="btn btn-default" id="instagram" href="{{ url('/redirect/instagram') }}">Instagram</a>
+                          </div>                         
+                        </div>  
+                          <div class="form-group">
+                           <div class="col-md-6 col-md-offset-4">
+                             <a class="btn btn-default" id="google" href="{{ url('/redirect/google') }}">Google</a>
+                          </div>                         
+                        </div>  
+                         <div class="form-group">
+                           <div class="col-md-6 col-md-offset-4">
+                             <a class="btn btn-default" id="twitter" href="{{ url('/redirect/twitter') }}">Twitter</a>
+                          </div>                         
+                        </div>                        
                     </form>
                 </div>
             </div>
