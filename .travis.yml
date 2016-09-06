@@ -3,11 +3,20 @@ language: php
 php:
   - 5.6
   - 7.0
+  
+before_install:
+  - sudo add-apt-repository ppa:resmo/git-ftp -y
+  - sudo apt-get update -q
+  - sudo apt-get install git-ftp
 
 before_script:
+
   - travis_retry composer self-update
   - cp .env.travis .env
   - mysql -e 'create database homestead_test;'
   - composer install --no-interaction
 
 script: vendor/bin/phpunit
+
+after_success:
+ - git ftp push --user $login --passwd $senha ftp://ftp.williansoliveira.com.br/public_html
