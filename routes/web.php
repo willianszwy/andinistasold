@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+//
 Route::get('/home', 'HomeController@index');
 
 Route::get('/redirect/{provide}', 'SocialController@redirect');
