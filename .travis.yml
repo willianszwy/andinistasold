@@ -18,5 +18,3 @@ before_script:
 
 script: vendor/bin/phpunit
 
-after_success:
- - git ftp push --user $login --passwd $senha ftp://ftp.williansoliveira.com.br/public_html
