@@ -21,3 +21,72 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Mountain::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name,
+        'elevation' => $faker->randomNumber(4),
+        'prominence' => $faker->randomNumber(4),
+        'coordinates' => $faker->latitude.', '.$faker->longitude,
+        'isolation' => $faker->randomNumber(4),
+        'avatar' => $faker->slug,
+    ];
+});
+
+$factory->define(App\Country::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->country,
+        'code' => $faker->countryCode,
+    ];
+});
+
+$factory->define(App\Team::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->firstName,
+        'start_date' => $faker->date,
+        'finish_date' => $faker->date,
+        'style' => $faker->randomElement(['A', 'E']),
+    ];
+});
+
+$factory->define(App\Climber::class, function (Faker\Generator $faker) {
+    $faker->addProvider(new Faker\Provider\pt_BR\PhoneNumber($faker));
+
+    return [
+        'first_name' => $faker->firstName,
+        'last_name' => $faker->lastName,
+        'nickname' => $faker->firstName,
+        'birth' => $faker->date,
+        'gender' => $faker->randomElement(['F', 'M']),
+        'avatar' => $faker->slug,
+        'facebook' => $faker->url,
+        'blog' => $faker->url,
+        'instagram' => $faker->url,
+        'twitter' => $faker->url,
+        'email' => $faker->url,
+        'site' => $faker->url,
+        'phone' => $faker->cellphoneNumber,
+    ];
+});
+
+$factory->define(App\Range::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->firstName,
+    ];
+});
+
+$factory->define(App\Route::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->firstName,
+        'face' => $faker->randomElement(['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']),
+        'verified' => $faker->randomElement([0, 1]),
+    ];
+});
+
+$factory->define(App\Summit::class, function (Faker\Generator $faker) {
+    return [
+        'date_summit' => $faker->date,
+        'photo' => $faker->slug,
+        'verified' => $faker->randomElement([0, 1]),
+    ];
+});

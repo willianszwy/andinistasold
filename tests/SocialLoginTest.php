@@ -6,6 +6,8 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class SocialLoginTest extends TestCase
 {
+  use \Illuminate\Foundation\Testing\DatabaseMigrations;
+  
     public function getUser(){
         $user = Mockery::mock('Laravel\Socialite\Two\User');
 
