@@ -8,7 +8,7 @@ class Mountain extends Model
 {
     public function countries()
     {
-        return $this->belongsToMany('App\Country');
+        return $this->belongsToMany('App\Country')->withTimestamps();
     }
 
     public function summits()
@@ -23,6 +23,6 @@ class Mountain extends Model
 
     public function ranges()
     {
-        return $this->belongsToMany('App\Range');
+        return $this->belongsToMany('App\Range')->withTimestamps();
     }
 }

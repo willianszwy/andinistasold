@@ -13,7 +13,7 @@ class Summit extends Model
 
     public function climbers()
     {
-        return $this->belongsToMany('App\Climber');
+        return $this->belongsToMany('App\Climber')->withTimestamps();
     }
 
     public function route()
