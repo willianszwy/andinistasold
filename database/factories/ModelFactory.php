@@ -80,6 +80,9 @@ $factory->define(App\Route::class, function (Faker\Generator $faker) {
         'name' => $faker->firstName,
         'face' => $faker->randomElement(['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']),
         'verified' => $faker->randomElement([0, 1]),
+        'mountain_id' => function () {
+            return factory(App\Mountain::class)->create()->id;
+        }
     ];
 });
 
@@ -88,5 +91,11 @@ $factory->define(App\Summit::class, function (Faker\Generator $faker) {
         'date_summit' => $faker->date,
         'photo' => $faker->slug,
         'verified' => $faker->randomElement([0, 1]),
+        'mountain_id' => function () {
+            return factory(App\Mountain::class)->create()->id;
+        },
+        'route_id' => function () {
+            return factory(App\Route::class)->create()->id;
+        }
     ];
 });
