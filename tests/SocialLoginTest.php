@@ -49,17 +49,12 @@ class SocialLoginTest extends TestCase
     {
         $this->socialAccountService = m::mock(\App\SocialAccountService::class);
         $this->socialAccountService->shouldReceive('createOrGetUser')
-                                 ->times(4)
                                  ->andReturn();
 
         \Auth::shouldReceive('login')
-                   ->times(4)
                    ->andReturn();
 
         $this->controller->callback($this->socialAccountService, 'facebook');
-        $this->controller->callback($this->socialAccountService, 'google');
-        $this->controller->callback($this->socialAccountService, 'twitter');
-        $this->controller->callback($this->socialAccountService, 'instagram');
 
         $this->controller->callback($this->socialAccountService, 'foo');
     }
