@@ -1,39 +1,21 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Mockery as m;
 
 class SocialLoginTest extends TestCase
 {
-  use \Illuminate\Foundation\Testing\DatabaseMigrations;
-  
-    public function getUser(){
-        $user = Mockery::mock('Laravel\Socialite\Two\User');
+    use DatabaseMigrations;
 
-        $user->shouldReceive('getId') 
-            ->andReturn(1)
-            ->shouldReceive('getEmail')
-            ->andReturn(str_random(10).'@noemail.app')
-            ->shouldReceive('getNickname')
-            ->andReturn('Laztopaz')
-            ->shouldReceive('getName')
-            ->andReturn('Nome')
-            ->shouldReceive('getAvatar')
-            ->andReturn('https://en.gravatar.com/userimage');
+    protected $controller;
+    protected $socialAccountService;
 
-        return $user;    
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->controller = new \App\Http\Controllers\SocialController();
     }
-
-    public function mockSocial(){
-        \Socialite::shouldReceive('driver->redirect')
-              ->andReturn(); 
-
-        \Socialite::shouldReceive('driver->user')
-            ->andReturn($this->getUser());       
-
-    }
-
 
     public function test_login_page()
     {
@@ -43,55 +25,42 @@ class SocialLoginTest extends TestCase
              ->see('Login');
     }
 
-    public function test_can_login_with_facebook()
+    public function test_redirect()
     {
+        \Socialite::shouldReceive('driver->redirect')
+              ->once()
+              ->andReturn();
 
-        $this->mockSocial();          
-
-        $this->visit('/login')
-             ->click('facebook')
-             ->seePageIs('/redirect/facebook');
-
-        $this->visit('/callback/facebook');   
+        $this->controller->redirect('facebook');
     }
 
-    public function test_can_login_with_instagram()
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function test_social_login_redirect_fail_invalid_provider()
     {
-
-        $this->mockSocial();          
-
-        $this->visit('/login')
-             ->click('instagram')
-             ->seePageIs('/redirect/instagram');
-
-        $this->visit('/callback/instagram');  
-
+        $this->controller->redirect('foo');
     }
 
-    public function test_can_login_with_google()
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function test_social_login_callback()
     {
+        $this->socialAccountService = m::mock(\App\SocialAccountService::class);
+        $this->socialAccountService->shouldReceive('createOrGetUser')
+                                 ->times(4)
+                                 ->andReturn();
 
-        $this->mockSocial();          
+        \Auth::shouldReceive('login')
+                   ->times(4)
+                   ->andReturn();
 
-        $this->visit('/login')
-             ->click('google')
-             ->seePageIs('/redirect/google');
+        $this->controller->callback($this->socialAccountService, 'facebook');
+        $this->controller->callback($this->socialAccountService, 'google');
+        $this->controller->callback($this->socialAccountService, 'twitter');
+        $this->controller->callback($this->socialAccountService, 'instagram');
 
-        $this->visit('/callback/google');  
-
-    }  
-
-    public function test_can_login_with_twitter()
-    {
-
-        $this->mockSocial();          
-
-        $this->visit('/login')
-             ->click('twitter')
-             ->seePageIs('/redirect/twitter');
-
-        $this->visit('/callback/twitter');  
-
+        $this->controller->callback($this->socialAccountService, 'foo');
     }
-
 }

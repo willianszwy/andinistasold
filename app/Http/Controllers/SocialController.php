@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests;
+use App\SocialAccountService;
 
 class SocialController extends Controller
 {
@@ -13,14 +14,13 @@ class SocialController extends Controller
         return \Socialite::driver($provider)->redirect();
     }
 
-    public function callback($provider)
+    public function callback(SocialAccountService $service, $provider)
     {
-         $user = \Socialite::driver($provider)->user();
+         
+        $user = $service->createOrGetUser(\Socialite::driver($provider));
 
-        return ['name' => $user->getId(),
-                'nick' => $user->getNickname(),
-                'name' => $user->getName(),
-                'email'=> $user->getEmail(),
-               'avatar'=> $user->getAvatar()];
+        Auth::login($user);
+
+        return redirect()->to('/home');
     }
 }
