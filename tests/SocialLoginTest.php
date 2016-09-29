@@ -42,20 +42,4 @@ class SocialLoginTest extends TestCase
         $this->controller->redirect('foo');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function test_social_login_callback()
-    {
-        $this->socialAccountService = m::mock(\App\SocialAccountService::class);
-        $this->socialAccountService->shouldReceive('createOrGetUser')
-                                 ->andReturn();
-
-        \Auth::shouldReceive('login')
-                   ->andReturn();
-
-        $this->controller->callback($this->socialAccountService, 'facebook');
-
-        $this->controller->callback($this->socialAccountService, 'foo');
-    }
 }
