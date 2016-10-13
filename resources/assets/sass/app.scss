@@ -1,9 +1,25 @@
 
+
+
 // Fonts
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+$fa-font-path:   "../font";
+
+@import "bower_components/flag-icon-css/sass/flag-icon";
+@import "node_modules/font-awesome/scss/_variables.scss";
+@import "node_modules/font-awesome/scss/font-awesome.scss";
+
 
 // Variables
 @import "variables";
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+@import "ranking";
+@import "buttons";
+
+
+
+
+ 

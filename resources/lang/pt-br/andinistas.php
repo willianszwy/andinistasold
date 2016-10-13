@@ -6,6 +6,7 @@ return [
   'register' => 'Registrar',
   'password' => 'Senha',
   'password.forget' => 'Esqueceu a senha?',
-  'password.remember' => 'Lembre-me'
+  'password.remember' => 'Lembre-me',
+  'or' => 'Ou'
 ];
 

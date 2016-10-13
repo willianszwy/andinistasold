@@ -1,0 +1,15 @@
+.btn-facebook {
+   @include button-variant(#fff,$facebook-color, darken($facebook-color, 10%));
+}
+
+.btn-twitter {
+   @include button-variant(#fff,$twitter-color, darken($twitter-color, 10%));
+}
+
+.btn-google {
+  @include button-variant(#fff,$google-color, darken($google-color, 10%));
+}
+
+.btn-instagram {
+   @include button-variant(#fff,$instagram-color, darken($instagram-color, 10%));
+}
